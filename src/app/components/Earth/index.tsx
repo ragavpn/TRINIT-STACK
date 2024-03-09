@@ -21,14 +21,16 @@ export interface EarthProps {
   lightDirection: Vector3;
 }
 
-export const Earth = ({ rate = 0.1 }) => {
+export const Earth = ({ rate = 0.1, cam = null, setCamera = () => {} }) => {
   const initialSunRotation = new Vector3(1, 0, 0).applyAxisAngle(
     new Vector3(0, 0, 1),
     Math.PI * (0.0001 / 180),
   );
-  let camera = null;
   useThree(({ camera }) => {
-    camera = camera;
+    //@ts-expect-error
+    cam = camera;
+    //@ts-expect-error
+    setCamera(cam);
   });
 
   let [lightDirection, setLightDirection] = useState<Vector3>(

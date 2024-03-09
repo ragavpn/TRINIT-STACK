@@ -16,6 +16,6 @@ with open('logs', 'w') as f:
     while True: 
       c, addr = s.accept()     
       print ('Got connection from', addr )
-      data = c.recv(1024)
+      data = c.recv(32768)
       print(data)
    
