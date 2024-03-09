@@ -1,1 +1,5 @@
-/*# sourceMappingURL=PageStyles.css.map */
+.canvas-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+}/*# sourceMappingURL=PageStyles.css.map */
