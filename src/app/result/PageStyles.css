@@ -13,8 +13,7 @@
 }
 
 .foreground {
-  -webkit-backdrop-filter: blur(50px);
-          backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
   z-index: 1;
   display: grid;
 }
@@ -32,7 +31,6 @@
 }
 
 .info-card {
-  width: -moz-fit-content;
   width: fit-content;
   position: fixed;
   top: 50%;
@@ -50,4 +48,6 @@ button {
 
 .nav {
   transform: translateY(80%);
-}/*# sourceMappingURL=PageStyles.css.map */
+}
+
+/*# sourceMappingURL=PageStyles.css.map */

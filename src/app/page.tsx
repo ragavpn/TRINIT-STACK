@@ -1,12 +1,23 @@
-import React from "react";
+"use client";
+import React, { lazy } from "react";
 import "./PageStyles.css";
-import { Blob } from "./components/Blob/Blob";
-
-import blob1 from "../assets/blob1.svg";
-import blob2 from "../assets/blob2.svg";
-import blob3 from "../assets/blob3.svg";
-import blob4 from "../assets/blob4.svg";
+import { Canvas } from "react-three-fiber";
+import { OrbitControls } from "@react-three/drei";
+import { Suspense } from "react";
+import { Earth } from "./components/Earth";
 
 export default function Home() {
-  return <></>;
+  return (
+    <div className="canvas-container">
+      <Canvas>
+        <ambientLight color="yellow" />
+        <pointLight position={[0, -2220, -2010]} intensity={9000} />
+
+        <OrbitControls />
+        <Suspense fallback={null}>
+          <Earth />
+        </Suspense>
+      </Canvas>
+    </div>
+  );
 }
