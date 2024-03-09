@@ -1,9 +1,18 @@
 .info-card {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 30px;
   flex-direction: row;
+  height: 50%;
+  width: 50%;
+  padding: 0;
+}
+
+.info-card-text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .num-caption {
@@ -24,17 +33,19 @@
   letter-spacing: -0.07em;
   text-align: left;
   color: white;
-  width: 70%;
+  width: 100%;
+  margin-bottom: 2%;
 }
 
 .description {
   font-family: Poppins;
-  font-size: 34px;
+  font-size: 28px;
   font-weight: 275;
-  line-height: 51px;
+  line-height: 41px;
   letter-spacing: -0.05em;
   text-align: left;
   color: white;
+  width: 70%;
 }
 
 button {
@@ -42,4 +53,31 @@ button {
   color: white;
 }
 
+.rating-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin-top: 2%;
+}
+.rating-buttons > button {
+    width: 145px;
+    height: 2.75rem;
+    border-radius: 0.875rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-right: 2rem;
+}
+.upvote-button {
+    background-color: #565B6F;
+}
+.downvote-button {
+    background-color: rgba(86, 91, 111, 0.5);
+}
+.upvote-button:hover, .downvote-button:hover {
+  transition: 300ms;
+  opacity: 0.7;
+}
 /*# sourceMappingURL=InfoCard.css.map */

@@ -1,4 +1,6 @@
 import Image from "next/image";
+import thumbsUp from "../../../assets/thumbsUp.svg";
+import thumbsDown from "../../../assets/thumbsDown.svg";
 import "./InfoCard.css";
 export default function InfoCard({
   item,
@@ -15,8 +17,14 @@ export default function InfoCard({
         <p className="description">{item.description}</p>
         <div className="rating-buttons">
           {/* TODO: add upvote and downvote icons */}
-          <button> Upvote </button>
-          <button> Downvote </button>
+          <button className="upvote-button">
+            <Image src={thumbsUp} alt="Upvote" />
+            <span>Upvote</span>
+          </button>
+          <button className="downvote-button">
+            <Image src={thumbsDown} alt="Downvote" />
+            <span>Downvote</span>
+          </button>
         </div>
       </div>
     </div>

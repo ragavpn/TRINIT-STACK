@@ -38,9 +38,9 @@ export const FancyCarousel: FC<CarouselInfo> = ({
   peripheralImageRadius = 180,
   peripheralImageBoxShadow = "",
   focusElementStyling = {},
-  border = false,
-  borderWidth = 5,
-  borderHexColor = "CB786C",
+  border,
+  borderWidth,
+  borderHexColor,
   autoRotateTime = 0,
   transitionTime = 1.5,
   navigationTextSize = 2,
@@ -57,7 +57,7 @@ export const FancyCarousel: FC<CarouselInfo> = ({
   const theta: number = 360 / noOfImages;
 
   const borderElement: string = border
-    ? `url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'${carouselRadius * 2}\' ry=\'${carouselRadius * 2}\' stroke=\'%23${borderHexColor}FF\' stroke-width=\'${borderWidth}\' stroke-dasharray=\'6%2c 24\' stroke-dashoffset=\'0\' stroke-linecap=\'square\'/%3e%3c/svg%3e")`
+    ? `url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'${carouselRadius * 2}\' ry=\'${carouselRadius * 2}\' stroke=\'%23${borderHexColor}FF\' stroke-width=\'${borderWidth}\' stroke-dasharray=\'6%2c 24\' stroke-dashoffset=\'0\' stroke-linecap=\'circle\'/%3e%3c/svg%3e")`
     : "";
 
   var newCoordinates: number[][] = [];
