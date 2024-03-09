@@ -7,6 +7,7 @@ import blob1 from "../../assets/blob1.svg";
 import blob2 from "../../assets/blob2.svg";
 import blob3 from "../../assets/blob3.svg";
 import blob4 from "../../assets/blob4.svg";
+
 import some from "../../assets/some.png";
 import { FancyCarousel } from "../components/carousel/Carousel";
 import InfoCard from "../components/InfoCard/InfoCard";
@@ -44,7 +45,13 @@ export default function Home() {
 
   const noOfImages: number = 5;
   const theta: number = 360 / noOfImages;
-
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <div className="back">
       <div className="blobContainer">
@@ -75,14 +82,14 @@ export default function Home() {
                 rotateLeft();
               }}
             >
-              d
+              {"<"}
             </button>
             <button
               onClick={() => {
                 rotateRight();
               }}
             >
-              e
+              {">"}
             </button>
           </div>
         </div>

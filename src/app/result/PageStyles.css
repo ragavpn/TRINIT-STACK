@@ -1,7 +1,7 @@
 .back {
   width: 100vw;
   height: 100vh;
-  background-color: #141517;
+  background-color: #0d0d0f;
   display: grid;
 }
 
@@ -13,8 +13,8 @@
 }
 
 .foreground {
-  -webkit-backdrop-filter: blur(40px);
-          backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(50px);
+          backdrop-filter: blur(50px);
   z-index: 1;
   display: grid;
 }
@@ -29,7 +29,6 @@
   z-index: 2;
   display: flex;
   justify-content: center;
-  align-self: center;
 }
 
 .info-card {
@@ -47,4 +46,8 @@
 
 button {
   padding: 10px;
+}
+
+.nav {
+  transform: translateY(80%);
 }/*# sourceMappingURL=PageStyles.css.map */

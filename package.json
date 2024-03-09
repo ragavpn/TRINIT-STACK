@@ -23,7 +23,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-three-fiber": "^6.0.13",
-    "slider": "^1.0.4"
+    "slider": "^1.0.4",
+    "swiper": "^11.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
