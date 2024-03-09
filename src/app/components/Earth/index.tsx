@@ -5,23 +5,35 @@ import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 import { useFrame, useLoader } from "@react-three/fiber";
 
 import { earthFragmentShader, earthVertexShader } from "./shaders";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Atmosphere } from "../Atmosphere";
-import { useLightDirection } from "../utils/useLightDirection";
+import { useThree } from "react-three-fiber";
+import * as THREE from "three";
 
 export const lightDirectionDELETE = new Vector3(1, 0, 0).applyAxisAngle(
   new Vector3(0, 0, 1),
   Math.PI * (13 / 180),
 );
 
-const verteces = Math.pow(2, 9);
+const vertices = Math.pow(2, 9);
 
 export interface EarthProps {
   lightDirection: Vector3;
 }
 
-export const Earth = () => {
-  const lightDirection = useLightDirection();
+export const Earth = ({ rate = 0.1 }) => {
+  const initialSunRotation = new Vector3(1, 0, 0).applyAxisAngle(
+    new Vector3(0, 0, 1),
+    Math.PI * (0.0001 / 180),
+  );
+  let camera = null;
+  useThree(({ camera }) => {
+    camera = camera;
+  });
+
+  let [lightDirection, setLightDirection] = useState<Vector3>(
+    initialSunRotation.clone(),
+  );
   const [earthDayTexture, nightTexture, cloudTexture] = useLoader(
     TextureLoader,
     [
@@ -51,8 +63,15 @@ export const Earth = () => {
     uniformsRef.current.lightDirection.value.copy(lightDirection);
   }, [lightDirection]);
 
+  useFrame(({ clock }) => {
+    lightDirection = lightDirection
+      .clone()
+      .applyAxisAngle(new Vector3(0, 1, 0), Math.PI * (rate / 180));
+    setLightDirection(lightDirection);
+  });
+
   return (
-    <Sphere args={[1, verteces, verteces]}>
+    <Sphere args={[1, vertices, vertices]}>
       <shaderMaterial
         vertexShader={earthVertexShader}
         fragmentShader={earthFragmentShader}
