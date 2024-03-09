@@ -8,22 +8,5 @@ import blob3 from "../assets/blob3.svg";
 import blob4 from "../assets/blob4.svg";
 
 export default function Home() {
-  const blobs = [blob1, blob2, blob3, blob4];
-  return (
-    <div className="back">
-      <div className="blobContainer">
-        {blobs.map((blob) => {
-          return (
-            <Blob
-              src={blob}
-              key={blob}
-              x={150 * Math.random()}
-              y={150 * Math.random()}
-            />
-          );
-        })}
-      </div>
-      <div className="foreground"></div>
-    </div>
-  );
+  return <></>;
 }

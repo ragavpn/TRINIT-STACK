@@ -4,7 +4,6 @@ import "./styles.BlobStyles.css";
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import nodeCrypto from "crypto";
 export function Blob({ src, x, y }: { src: string; x: number; y: number }) {
   const [Position, setPosition] = useState({ x: x, y: y });
 
