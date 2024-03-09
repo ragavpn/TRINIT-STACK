@@ -16,10 +16,21 @@
   -webkit-backdrop-filter: blur(40px);
           backdrop-filter: blur(40px);
   z-index: 1;
+  display: grid;
+}
+
+.carousel, .ui {
+  grid-area: 1/1;
+  width: 100vw;
+  height: 100vh;
+}
+
+.ui {
+  z-index: 2;
 }
 
 .carousel {
-  transform: translate(-25%, -25%);
+  transform: translate(-20%, -50%);
 }
 
 button {

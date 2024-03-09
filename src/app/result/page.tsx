@@ -58,20 +58,22 @@ export default function Home() {
             setCarousel={setCarousel}
           />
         </div>
-        <button
-          onClick={() => {
-            rotateLeft();
-          }}
-        >
-          d
-        </button>
-        <button
-          onClick={() => {
-            rotateRight();
-          }}
-        >
-          e
-        </button>
+        <div className="ui">
+          <button
+            onClick={() => {
+              rotateLeft();
+            }}
+          >
+            d
+          </button>
+          <button
+            onClick={() => {
+              rotateRight();
+            }}
+          >
+            e
+          </button>
+        </div>
       </div>
     </div>
   );
