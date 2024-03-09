@@ -12,5 +12,5 @@ export async function register() {
   // }))
   // console.log("Py Server Socket created")
 
-  PySocket.connect(3301);
+  PySocket.connect(process.env.PY_SOCKET!);
 }
