@@ -27,10 +27,22 @@
 
 .ui {
   z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.info-card {
+  width: -moz-fit-content;
+  width: fit-content;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-15%, -70%);
 }
 
 .carousel {
-  transform: translate(-20%, -50%);
+  transform: translate(-25%, -70%);
 }
 
 button {

@@ -7,7 +7,9 @@ import blob1 from "../../assets/blob1.svg";
 import blob2 from "../../assets/blob2.svg";
 import blob3 from "../../assets/blob3.svg";
 import blob4 from "../../assets/blob4.svg";
+import some from "../../assets/some.png";
 import { FancyCarousel } from "../components/carousel/Carousel";
+import InfoCard from "../components/InfoCard/InfoCard";
 
 export default function Home() {
   const blobs = [blob1, blob2, blob3, blob4, blob1];
@@ -15,6 +17,12 @@ export default function Home() {
     carouselOrietation: 0,
     elementOrientation: 0,
     focusElement: 0,
+  });
+  let arr = Array(5).fill({
+    src: some,
+    title: "Star Shaped Garden",
+    description:
+      "The image consists of a star shaped garden with a housing complex in the center",
   });
   const rotateRight = () => {
     setCarousel({
@@ -36,6 +44,7 @@ export default function Home() {
 
   const noOfImages: number = 5;
   const theta: number = 360 / noOfImages;
+
   return (
     <div className="back">
       <div className="blobContainer">
@@ -53,26 +62,29 @@ export default function Home() {
       <div className="foreground">
         <div className="carousel">
           <FancyCarousel
-            images={Array(5).fill("/vercel.svg")}
+            images={arr}
             carousel={carousel}
             setCarousel={setCarousel}
           />
         </div>
         <div className="ui">
-          <button
-            onClick={() => {
-              rotateLeft();
-            }}
-          >
-            d
-          </button>
-          <button
-            onClick={() => {
-              rotateRight();
-            }}
-          >
-            e
-          </button>
+          <InfoCard className="info-card" item={arr[carousel.focusElement]} />
+          <div className="nav">
+            <button
+              onClick={() => {
+                rotateLeft();
+              }}
+            >
+              d
+            </button>
+            <button
+              onClick={() => {
+                rotateRight();
+              }}
+            >
+              e
+            </button>
+          </div>
         </div>
       </div>
     </div>

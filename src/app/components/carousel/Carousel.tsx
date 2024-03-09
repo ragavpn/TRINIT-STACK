@@ -3,9 +3,9 @@
 import React, { FC, useState, CSSProperties } from "react";
 import "./carousel.css";
 import Image from "next/image";
-
+import InfoCard from "../InfoCard/InfoCard";
 interface CarouselInfo {
-  images: string[];
+  images: any;
   setFocusElement?: Function;
   offsetAngle?: number;
   carouselRadius?: number;
@@ -32,10 +32,10 @@ export const FancyCarousel: FC<CarouselInfo> = ({
   images,
   setFocusElement = () => {},
   offsetAngle = 0,
-  carouselRadius = 550,
+  carouselRadius = 600,
   centralImageRadius = 0,
   centralImageBoxShadow = "",
-  peripheralImageRadius = 75,
+  peripheralImageRadius = 180,
   peripheralImageBoxShadow = "",
   focusElementStyling = {},
   border = false,
@@ -61,6 +61,7 @@ export const FancyCarousel: FC<CarouselInfo> = ({
     : "";
 
   var newCoordinates: number[][] = [];
+  //@ts-expect-error
   images.forEach((item, index) => {
     newCoordinates.push([
       carouselRadius -
@@ -106,6 +107,7 @@ export const FancyCarousel: FC<CarouselInfo> = ({
             width: `${carouselRadius * 2}px`,
           }}
         >
+          {/*@ts-expect-error*/}
           {images.map((item, index) =>
             index !== carousel.focusElement ? (
               <div
@@ -119,11 +121,13 @@ export const FancyCarousel: FC<CarouselInfo> = ({
                   bottom: `${rotatedCoordinates[index][1]}px`,
                   boxShadow: `${peripheralImageBoxShadow}`,
                   transition: `${transitionTime}`,
+                  border: "20px solid #565B6F",
+                  borderRadius: "100%",
+                  boxSizing: "content-box",
                 }}
               >
                 <Image
-                  className="fancy-carousel-image"
-                  src={item}
+                  src={item.src}
                   width={`${peripheralImageRadius * 2}`}
                   height={`${peripheralImageRadius * 2}`}
                   alt={item}
@@ -147,11 +151,7 @@ export const FancyCarousel: FC<CarouselInfo> = ({
                 }}
               >
                 <Image
-                  className="fancy-carousel-image"
-                  src={item}
-                  style={{
-                    transition: `${transitionTime}`,
-                  }}
+                  src={item.src}
                   width={`${peripheralImageRadius * 2}`}
                   height={`${peripheralImageRadius * 2}`}
                   alt={item}
