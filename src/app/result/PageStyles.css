@@ -1,0 +1,27 @@
+.back {
+  width: 100vw;
+  height: 100vh;
+  background-color: #141517;
+  display: grid;
+}
+
+.blobContainer, .foreground {
+  width: 100vw;
+  height: 100vh;
+  grid-area: 1/1;
+  overflow: hidden;
+}
+
+.foreground {
+  -webkit-backdrop-filter: blur(40px);
+          backdrop-filter: blur(40px);
+  z-index: 1;
+}
+
+.carousel {
+  transform: translate(-25%, -25%);
+}
+
+button {
+  padding: 10px;
+}/*# sourceMappingURL=PageStyles.css.map */
