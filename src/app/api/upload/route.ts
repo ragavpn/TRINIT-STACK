@@ -1,7 +1,5 @@
 // pages/api/upload.js
 import { NextResponse } from "next/server";
-import fs from "fs";
-import { encode } from "querystring";
 
 export async function POST(req: Request) {
   // Get the query parameter "binarystring" from the request
@@ -18,12 +16,10 @@ export async function POST(req: Request) {
     );
   }
   try {
-    // Make a request to the /caption route of the Python HTTP server
     const response = await fetch(
       `http://localhost:3301/caption?caption=${encodeURIComponent(binarystring)}`,
     );
 
-    // Check if the response is successful
     if (!response.ok) {
       throw new Error("Failed to fetch from server");
     }

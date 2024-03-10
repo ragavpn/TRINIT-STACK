@@ -23,7 +23,7 @@ export default function Home() {
     accept: {
       "image/*": [".jpg", ".jpeg"],
     },
-    maxFiles: 1,
+    maxFiles: 10,
     onDropAccepted: acceptDrop,
   });
 
@@ -79,18 +79,19 @@ export default function Home() {
           },
         );
 
-        const data = await response;
-        let storedImages =
-          window != undefined
-            ? window.localStorage.getItem("images")!
-            : "" || [];
+        const data = await (await response).json();
+        let storedImages = [];
+        if (window != undefined)
+          storedImages =
+            JSON.parse(window.localStorage.getItem("images")) || [];
+
         storedImages.push({
           src: base64string,
-          title: data,
+          title: data.caption,
         });
-        if (window != undefined) {
+
+        if (window != undefined)
           window.localStorage.setItem("images", JSON.stringify(storedImages));
-        }
       })();
     };
     reader.readAsDataURL(files[0]);
