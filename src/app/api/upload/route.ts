@@ -1,10 +1,14 @@
 // pages/api/upload.js
 import { NextResponse } from "next/server";
-export async function GET(req: Request) {
+import fs from "fs";
+
+export async function POST(req: Request) {
   // Get the query parameter "binarystring" from the request
   const { searchParams } = new URL(req.url);
+  const data = await req.formData();
 
-  const binarystring = searchParams.get("binarystring");
+  const binarystring = data.get("string")?.toString();
+
   // Ensure binarystring is provided
   if (!binarystring) {
     return NextResponse.redirect(
@@ -12,7 +16,6 @@ export async function GET(req: Request) {
       { status: 400 },
     );
   }
-
   try {
     // Make a request to the /caption route of the Python HTTP server
     const response = await fetch(

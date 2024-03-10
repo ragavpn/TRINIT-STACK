@@ -11,6 +11,7 @@ import { Bounds, useBounds, OrbitControls } from "@react-three/drei";
 import { useDropzone } from "react-dropzone";
 import { useThree } from "react-three-fiber";
 import { Camera } from "react-three-fiber";
+import fs from "fs";
 export default function Home() {
   let [rate, setRate] = useState(0.2);
   let [margin, setMargin] = useState(1.2);
@@ -49,7 +50,8 @@ export default function Home() {
   const [file, setFile] = useState();
 
   async function acceptDrop(files: File[], event: any) {
-    let base64string;
+    let base64string = "";
+
     setRate(4);
     setMargin(0.9);
     console.log(files);
@@ -64,8 +66,32 @@ export default function Home() {
     // const byteArray = await fileToByteArray(files[0]);
     var reader = new FileReader();
     reader.onloadend = function () {
-      console.log("RESULT", reader.result);
       base64string = reader.result;
+      let fD = new FormData();
+      fD.append("string", base64string);
+
+      (async () => {
+        const response = fetch(
+          `/api/upload?binarystring=${encodeURIComponent("image")}`,
+          {
+            method: "POST",
+            body: fD,
+          },
+        );
+
+        const data = await response;
+        let storedImages =
+          window != undefined
+            ? window.localStorage.getItem("images")!
+            : "" || [];
+        storedImages.push({
+          src: base64string,
+          title: data,
+        });
+        if (window != undefined) {
+          window.localStorage.setItem("images", JSON.stringify(storedImages));
+        }
+      })();
     };
     reader.readAsDataURL(files[0]);
 
@@ -76,26 +102,6 @@ export default function Home() {
     setTimeout(() => {
       router.push("/result");
     }, 1800);
-
-    const response = fetch(
-      `/api/upload?binarystring=${encodeURIComponent(base64string)}`,
-      {
-        method: "GET",
-      },
-    );
-
-    const data = await response;
-    let storedImages =
-      window != undefined ? window.localStorage.getItem("images")! : "" || [];
-    storedImages.push({
-      src: base64string,
-      title: data,
-    });
-    if (window != undefined) {
-      window.localStorage.setItem("images", JSON.stringify(storedImages));
-    }
-
-    // fadeIn animation!
   }
 
   return (

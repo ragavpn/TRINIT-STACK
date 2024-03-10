@@ -4,19 +4,21 @@ import json
 import base64
 from PIL import Image
 from io import BytesIO
+from runner import MLModel
 
-def base64_to_image(data, output_filename):
+mlModel = None
+
+def base64_to_image(data):
     bytes_decoded = base64.b64decode(data)
     img = Image.open(BytesIO(bytes_decoded))
     out_jpg = img.convert("RGB")
-    out_jpg.save("saved_img.jpg")
+    out_jpg.save("./saved_img.jpg")
 
-def caption_image(caption):
-    # This is a placeholder function
-    # Implement your captioning logic here
-    base64_to_image(caption)
-     
-    return "hi!"  # For example, let's make the caption uppercase
+def caption_image(b64Image):
+    print(b64Image)
+    base64_to_image(b64Image)
+    res = mlModel.run("./saved_img.jpg")
+    return res
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -45,6 +47,8 @@ def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=33
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f'Starting server on port {port}...')
+    mlModel = MLModel()
+    print(f'Ml init')
     httpd.serve_forever()
 
 if __name__ == '__main__':
