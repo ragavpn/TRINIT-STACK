@@ -1,7 +1,8 @@
 //@ts-nocheck
 "use client";
-
+import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
+import { FileUploader } from "react-drag-drop-files";
 import { Canvas } from "@react-three/fiber";
 import "./PageStyles.css";
 import { Suspense } from "react";
@@ -15,9 +16,43 @@ export default function Home() {
   let [margin, setMargin] = useState(1.2);
   let [camera, setCamera] = useState();
 
-  function acceptDrop(files: File[], event: any) {
+  const router = useRouter();
+
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [".jpg", ".jpeg"],
+    },
+    maxFiles: 1,
+    onDropAccepted: acceptDrop,
+  });
+
+  const fileTypes = ["jpeg"];
+
+  const fileToByteArray = async (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const arrayBuffer = reader.result;
+        const uint8Array = new Uint8Array(arrayBuffer);
+        resolve(uint8Array);
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
+  const [file, setFile] = useState();
+
+  async function acceptDrop(files: File[], event: any) {
+    let base64string;
     setRate(4);
     setMargin(0.9);
+    console.log(files);
     console.log(camera);
     camera.position.set(0, 2, -6);
     camera.lookAt(0, 10, 10);
@@ -26,16 +61,42 @@ export default function Home() {
     camera.fov /= 8;
     camera.updateProjectionMatrix();
 
+    // const byteArray = await fileToByteArray(files[0]);
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      console.log("RESULT", reader.result);
+      base64string = reader.result;
+    };
+    reader.readAsDataURL(files[0]);
+
+    // var base64string = btoa(String.fromCharCode.apply(null, byteArray));
+    // console.log(base64string);
+
+    document.querySelector(".container")?.classList.add("fade-in");
+    setTimeout(() => {
+      router.push("/result");
+    }, 1800);
+
+    const response = fetch(
+      `/api/upload?binarystring=${encodeURIComponent(base64string)}`,
+      {
+        method: "GET",
+      },
+    );
+
+    const data = await response;
+    let storedImages =
+      window != undefined ? window.localStorage.getItem("images")! : "" || [];
+    storedImages.push({
+      src: base64string,
+      title: data,
+    });
+    if (window != undefined) {
+      window.localStorage.setItem("images", JSON.stringify(storedImages));
+    }
+
     // fadeIn animation!
   }
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    accept: {
-      "image/jpeg": [".jpg", ".jpeg"],
-    },
-    maxFiles: 1,
-    onDropAccepted: acceptDrop,
-  });
-  const acceptedFileItems = acceptedFiles[0];
 
   return (
     <div className="container">

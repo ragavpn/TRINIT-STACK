@@ -31,4 +31,18 @@
   display: none;
 }
 
+.fade-in {
+  opacity: 1;
+  animation: fadeIn 2000ms ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /*# sourceMappingURL=PageStyles.css.map */

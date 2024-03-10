@@ -1,3 +1,5 @@
+// @ts-ignore
+
 "use client";
 import React, { useCallback, useState, useEffect } from "react";
 import Image from "next/image";
@@ -11,10 +13,6 @@ import blob2 from "../../assets/blob2.svg";
 import blob3 from "../../assets/blob3.svg";
 import blob4 from "../../assets/blob4.svg";
 
-import some from "../../assets/some.png";
-import img2 from "../../assets/img2.png";
-import img3 from "../../assets/img3.png";
-import img4 from "../../assets/img4.png";
 import leftArrow from "../../assets/leftArrow.svg";
 import rightArrow from "../../assets/rightArrow.svg";
 
@@ -23,44 +21,20 @@ import InfoCard from "../components/InfoCard/InfoCard";
 
 export default function Home() {
   const blobs = [blob1, blob2, blob3, blob4, blob1];
+  let [arr, setArr] = useState([{ src: "", title: "" }]);
   const [carousel, setCarousel] = useState({
     carouselOrietation: 0,
     elementOrientation: 0,
     focusElement: 0,
   });
 
-  let arr = [
-    {
-      src: some,
-      title: "Star Shaped Garden",
-      description:
-        "The image consists of a star shaped garden with a housing complex in the center",
-    },
-    {
-      src: img2,
-      title: "City With River",
-      description:
-        "The image consists of a city and a river that flows through it providing a scenic view",
-    },
-    {
-      src: img3,
-      title: "Beach in Sands",
-      description:
-        "The image consists of beach and the sands that are on the bay",
-    },
-    {
-      src: img4,
-      title: "Intersection of Roads",
-      description:
-        "The image consists of intersection of roads in a cosmopolitan city",
-    },
-    {
-      src: img4,
-      title: "Intersection of Roads",
-      description:
-        "The image consists of intersection of roads in a cosmopolitan city",
-    },
-  ];
+  useEffect(() => {
+    setArr(
+      window != undefined
+        ? JSON.parse(window.localStorage.getItem("images")!)
+        : [{ src: "", title: "" }] || [{ src: "", title: "" }],
+    );
+  }, []);
 
   const noOfImages: number = arr.length;
   const theta: number = 360 / noOfImages;
@@ -104,11 +78,11 @@ export default function Home() {
         rotateRight();
       }
     };
-
-    window.addEventListener("keydown", handleKeyDown);
+    if (window != undefined) window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      if (window != undefined)
+        window.removeEventListener("keydown", handleKeyDown);
     };
   }, [carousel, rotateLeft, rotateRight]);
 
@@ -152,12 +126,14 @@ export default function Home() {
       <div className="foreground">
         <div className="carousel">
           <FancyCarousel
+            // @ts-ignore
             images={arr}
             carousel={carousel}
             setCarousel={setCarousel}
           />
         </div>
         <div className="ui">
+          {/* @ts-ignore */}
           <InfoCard className="info-card" item={arr[carousel.focusElement]} />
           <div className="nav">
             <button
@@ -169,14 +145,17 @@ export default function Home() {
             </button>
 
             <div className="flex flex-row justify-around w-full">
-              {arr.map((item) => {
+              {/* @ts-ignore @eslint-ignore */}
+              {arr.map((item: any) => {
                 return (
                   <div
+                    // @ts-ignore
                     className={`w-[18%] flex flex-col items-center rounded-xl justify-around text-white p-2 ${arr.indexOf(item) === carousel.focusElement ? "bg-[rgba(52,59,82,0.57)]" : ""}`}
                     style={{ transition: "background 0.5s ease" }}
+                    // @ts-ignore
                     key={arr.indexOf(item)}
                   >
-                    <Image width={120} src={item.src} alt="" />
+                    <Image width={120} height={160} src={item.src} alt="" />
                     <p className="text-sm w-[70%] text-center">{item.title}</p>
                   </div>
                 );

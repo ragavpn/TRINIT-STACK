@@ -14,7 +14,6 @@ export default function InfoCard({
       <div className="info-card-text">
         <h1 className="num-caption">#1 Caption Generated</h1>
         <h1 className="title">{item.title}</h1>
-        <p className="description">{item.description}</p>
         <div className="rating-buttons">
           {/* TODO: add upvote and downvote icons */}
           <button className="upvote-button">
