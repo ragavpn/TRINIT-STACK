@@ -104,7 +104,9 @@ export default function Home() {
       <div {...getRootProps({ className: "fg" })}>
         <input {...getInputProps()} />
         <div className="canvas-container">
-          <h1 className="drop-files">Drop Your Image Here</h1>
+          <h1 className="group-name">ARAT</h1>
+          <h1 className="event-name">TRINIT&#39;24</h1>
+          <h1 className="instruction"> Drag your image onto the earth</h1>
           <Canvas>
             <OrbitControls
               autoRotate
