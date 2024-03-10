@@ -5,7 +5,7 @@ import base64
 from PIL import Image
 from io import BytesIO
 from runner import MLModel
-
+from urllib.parse import unquote
 mlModel = None
 
 def base64_to_image(data):
@@ -16,16 +16,15 @@ def base64_to_image(data):
 
 def caption_image(b64Image):
     print(b64Image)
-    base64_to_image(b64Image)
-    res = mlModel.run("./saved_img.jpg")
-    return res
+    print("Image received")
+    return "iefn"
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed_path = urlparse(self.path)
         if parsed_path.path == '/caption':
             query_parameters = parse_qs(parsed_path.query)
-            caption = query_parameters.get('caption', [''])[0]
+            caption = unquote(query_parameters.get('caption', [''])[0])
             if caption:
                 captioned_text = caption_image(caption)
                 self.send_response(200)

@@ -1,6 +1,7 @@
 // pages/api/upload.js
 import { NextResponse } from "next/server";
 import fs from "fs";
+import { encode } from "querystring";
 
 export async function POST(req: Request) {
   // Get the query parameter "binarystring" from the request
