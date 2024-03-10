@@ -39,9 +39,9 @@ export const Earth = ({ rate = 0.1, cam = null, setCamera = () => {} }) => {
   const [earthDayTexture, nightTexture, cloudTexture] = useLoader(
     TextureLoader,
     [
-      "/experiment-earth-assets/8k_earth_daymap.jpg",
-      "/experiment-earth-assets/8k_earth_nightmap.jpg",
-      "/experiment-earth-assets/8k_earth_clouds.jpg",
+      "/experiment-earth-assets/8k_earth_daymap-75p.jpg",
+      "/experiment-earth-assets/8k_earth_nightmap-75p.jpg",
+      "/experiment-earth-assets/8k_earth_clouds-75p.jpg",
     ],
   );
 

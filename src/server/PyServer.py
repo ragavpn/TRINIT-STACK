@@ -15,7 +15,7 @@ def caption_image(caption):
     # This is a placeholder function
     # Implement your captioning logic here
     base64_to_image(caption)
-    
+     
     return "hi!"  # For example, let's make the caption uppercase
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
