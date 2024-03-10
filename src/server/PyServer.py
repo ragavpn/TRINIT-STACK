@@ -1,11 +1,23 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 import json
+import base64
+from PIL import Image
+import base64
+from io import BytesIO
+
+def base64_to_image(data, output_filename):
+    bytes_decoded = base64.b64decode(data)
+    img = Image.open(BytesIO(bytes_decoded))
+    out_jpg = img.convert("RGB")
+    out_jpg.save("saved_img.jpg")
 
 def caption_image(caption):
     # This is a placeholder function
     # Implement your captioning logic here
-    return caption.upper()  # For example, let's make the caption uppercase
+    base64_to_image(caption)
+    
+    return "hi!"  # For example, let's make the caption uppercase
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
