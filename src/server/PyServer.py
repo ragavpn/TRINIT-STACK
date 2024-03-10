@@ -6,18 +6,14 @@ from PIL import Image
 from io import BytesIO
 from runner import MLModel
 from urllib.parse import unquote
+
 mlModel = None
 
 def base64_to_image(data):
     bytes_decoded = base64.b64decode(data)
     img = Image.open(BytesIO(bytes_decoded))
-    out_jpg = img.convert("RGB")
-    out_jpg.save("./saved_img.jpg")
+    return img
 
-def caption_image(b64Image):
-    print(b64Image)
-    print("Image received")
-    return "iefn"
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -46,9 +42,18 @@ def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=33
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f'Starting server on port {port}...')
+    global mlModel
     mlModel = MLModel()
     print(f'Ml init')
     httpd.serve_forever()
+
+def caption_image(b64Image):
+    global mlModel
+    b64Image = b64Image[23:]
+    b = base64_to_image(b64Image)
+    b.save('./image.jpeg')
+    a = mlModel.run('./image.jpeg')
+    return a
 
 if __name__ == '__main__':
     run()

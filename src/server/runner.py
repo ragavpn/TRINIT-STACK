@@ -36,7 +36,6 @@ class MLModel:
         image = Image.open(image_path)
         image = image.resize((224, 224))
         image = image.convert("RGB")
-        Image._show(image)
         input = self.processor(images = image, return_tensors="pt").to(self.device)['pixel_values']
         generated_ids = self.model.generate(pixel_values=input, max_length=50)
         generated_captions = self.processor.batch_decode(generated_ids, skip_special_tokens=True)
