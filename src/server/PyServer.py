@@ -3,7 +3,6 @@ from urllib.parse import urlparse, parse_qs
 import json
 import base64
 from PIL import Image
-import base64
 from io import BytesIO
 
 def base64_to_image(data, output_filename):
