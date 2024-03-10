@@ -124,6 +124,8 @@ export const FancyCarousel: FC<CarouselInfo> = ({
                   border: "20px solid #565B6F",
                   borderRadius: "100%",
                   boxSizing: "content-box",
+                  overflow: "none",
+                  zIndex: "2",
                 }}
               >
                 <Image
